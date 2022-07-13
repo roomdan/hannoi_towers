@@ -45,18 +45,26 @@ const App = () => {
   //Esta actualización se hará con cada movimiento de las torres
   useEffect(() => {
     setTiles(towerOne.disks.traverse());
-  }, [towerOne]);
+  }, [towerOne, moveCount]);
 
   useEffect(() => {
     setTilesTwo(towerTwo.disks.traverse());
-  }, [towerTwo]);
+  }, [towerTwo, moveCount]);
 
   useEffect(() => {
     setTilesThree(towerThree.disks.traverse());
-  }, [towerThree]);
+  }, [towerThree, moveCount]);
 
   const reset = () => {
     //COMPLETAR
+    const tower = new Tower();
+    for (let i = disks; i > 0; i--) {
+      tower.add(i);
+    }
+    setTowerOne(tower);
+    setTowerTwo(new Tower());
+    setTowerThree(new Tower());
+    setMoveCount((prevState) => prevState * 0); //Actualizar los movimientos
   };
 
   const handleDrag = (e, tile, id) => {
@@ -70,26 +78,49 @@ const App = () => {
   };
 
   const handleDrop = (e) => {
-    //Funcion que se lanza cada vez que un disco se deja en una nueva torre 
+    //Funcion que se lanza cada vez que un disco se deja en una nueva torre
     const dropColumn = e.currentTarget.id; //ID de la columna de destino
     let source = towers[dragTile.towerId].tower; //Torre de origen
     let destination = towers[dropColumn].tower; //Torre de destino
 
     const goodMove = source.moveTopTo(destination); //Mover el disco desde la torre de origen al destino
-    if(goodMove){ //Si es un movimiento valido -> incrementar los movimientos
+    if (goodMove) {
+      //Si es un movimiento valido -> incrementar los movimientos
       setMoveCount((prevState) => prevState + 1); //Actualizar los movimientos
     }
   };
 
   const solve = () => {
     //COMPLETAR
+    if (moveCount > 0) {
+      reset();
+    } else {
+      autocomplete(disks, towerOne, towerThree, towerTwo);
+    }
+
+    function autocomplete(disks, origin, destination, auxiliar) {
+      if (disks === 1) {
+        origin.moveTopTo(destination);
+        setMoveCount((prevState) => prevState + 1); //Actualizar los movimientos
+      } else {
+        autocomplete(disks - 1, origin, auxiliar, destination);
+        origin.moveTopTo(destination);
+        setMoveCount((prevState) => prevState + 1); //Actualizar los movimientos
+        autocomplete(disks - 1, auxiliar, destination, origin);
+      }
+    }
   };
 
-  const winCondition = false; //COMPLETAR
+  const winCondition = towerThree.disks.size === disks; //COMPLETAR
   return (
     <>
       <div className="container">
-        <GameOptionsComp disks={disks} />
+        <GameOptionsComp
+          reset={reset}
+          disks={disks}
+          setDisks={setDisks}
+          solve={solve}
+        />
         <div className="content">
           <TowerComp
             id={1}
@@ -110,9 +141,7 @@ const App = () => {
             handleDrop={handleDrop}
           />
         </div>
-        {winCondition && (
-          <WinMessageComp moveCount={moveCount}/>
-        )}
+        {winCondition && <WinMessageComp moveCount={moveCount} />}
         Movimientos: {moveCount}
       </div>
     </>
