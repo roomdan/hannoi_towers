@@ -5,11 +5,11 @@ export function randomNumber(min, max) {
 export function randomColor() {
   return (
     "rgb(" +
-    randomNumber(0, 255) +
+    randomNumber(0, 100) +
     "," +
     randomNumber(0, 255) +
     "," +
-    randomNumber(0, 255) +
+    randomNumber(200, 255) +
     ")"
   );
 }

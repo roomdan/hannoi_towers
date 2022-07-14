@@ -3,6 +3,7 @@ import GameOptionsComp from "./components/GameOptionsComp";
 import TowerComp from "./components/TowerComp";
 import WinMessageComp from "./components/WinMessageComp";
 import Tower from "./utils/Tower";
+import { randomColor } from "./helpers/randoms";
 import "./App.css";
 
 const App = () => {
@@ -59,7 +60,7 @@ const App = () => {
     //COMPLETAR
     const tower = new Tower();
     for (let i = disks; i > 0; i--) {
-      tower.add(i);
+      tower.add(i, randomColor());
     }
     setTowerOne(tower);
     setTowerTwo(new Tower());
@@ -114,12 +115,13 @@ const App = () => {
   const winCondition = towerThree.disks.size === disks; //COMPLETAR
   return (
     <>
-      <div className="container">
+      <div className="container d-none d-md-block">
         <GameOptionsComp
           reset={reset}
           disks={disks}
           setDisks={setDisks}
           solve={solve}
+          moveCount={moveCount}
         />
         <div className="content">
           <TowerComp
@@ -141,8 +143,18 @@ const App = () => {
             handleDrop={handleDrop}
           />
         </div>
-        {winCondition && <WinMessageComp moveCount={moveCount} />}
-        Movimientos: {moveCount}
+        <WinMessageComp
+          disks={disks}
+          show={winCondition}
+          moveCount={moveCount}
+        />
+      </div>
+      <div style={{minHeight: '100vh'}} className="container d-flex flex-column d-md-none justify-content-center align-items-center">
+        <div className="h1 mb-3">Oops! 😔</div>
+        <div className="text-center h2">
+          Esta app funciona mejor en pantallas grandes, ingresa desde una tablet, ipad o
+          cualquier computadora o smart tv que prefieras.
+        </div>
       </div>
     </>
   );

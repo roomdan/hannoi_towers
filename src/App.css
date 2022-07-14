@@ -1,9 +1,14 @@
+body {
+  background-color: black;
+  color: white;;
+}
+
 .text-title {
   font-weight: 700;
 }
 
 .content {
-  border: 1px solid grey;
+  border: 1px solid transparent;
   display: inline-flex;
   font-family: sans-serif;
   justify-content: space-evenly;
@@ -13,33 +18,35 @@
 
 .column-container {
   align-items: flex-end;
-  border: 1px solid grey;
+  border: 1px solid transparent;
+  border-bottom: 1rem solid #c823ff;
   height: 80vh;
   position: relative;
-  width: 30%;
+  width: 25%;
 }
 
 .center-bar {
-  background-color: #2aa575;
+  background-color: #c823ff;
   width: 4%;
-  height: 100%;
-  border: 1px solid grey;
+  height: 90%;
+  border-radius: 20px;;
   position: absolute;
   left: 48%;
+  bottom: -5px;
   z-index: -1;
 }
 
 .tile {
-  background-color: #6d92c7;
-  border: 1px solid black;
-  border-radius: 4px;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 20px;
   height: 40px;
   margin: auto;
   z-index: 10;
 }
 
 .win-message {
-  background-color: #3f3dab;
+  background-color: #ffffff57;
+  backdrop-filter: blur(7px);
   border-radius: 10px;
   color: #fff;
   font-size: 42px;
@@ -48,7 +55,7 @@
   position: absolute;
   text-align: center;
   text-shadow: 1px 1px #000;
-  top: 40%;
+  top: 50%;
   transform: translate(-50%, -50%);
   width: 40%;
   z-index: 20;

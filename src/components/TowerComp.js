@@ -11,6 +11,7 @@ const TowerComp = ({ id, disks, handleDrop, handleDrag }) => {
         const tileCount = disks.length;
         const tileStyles = {
           width: `${tile.width}em`,
+          backgroundColor: `${tile.color}`,
         };
         tileStyles.marginTop =
           index === 0 ? `calc(80vh - ${tileCount * 40 + 20}px)` : "0";

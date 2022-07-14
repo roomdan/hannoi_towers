@@ -1,6 +1,6 @@
 import { Row, Col, Button } from "react-bootstrap";
 
-const GameOptionsComp = ({ disks, setDisks, reset, solve }) => {
+const GameOptionsComp = ({ disks, setDisks, reset, solve, moveCount }) => {
   function setDisk() {
     if (disks < 10) {
       setDisks(disks + 1);
@@ -15,20 +15,24 @@ const GameOptionsComp = ({ disks, setDisks, reset, solve }) => {
 
   return (
     <Row>
-      <Col>
-        <span>Discos: {disks}</span>
-        <Button onClick={setDisk} variant="outline-secondary">
-          +
-        </Button>
-        <Button onClick={rmDisk} variant="outline-secondary">
+      <Col className="p-3 d-flex justify-content-center align-items-center">
+        <h3>Dificultad: </h3>
+        <Button className="m-2" onClick={rmDisk} variant="success">
           -
         </Button>
+        <Button className="m-2" variant="secondary">{disks}</Button>
+        <Button className="m-2" onClick={setDisk} variant="success">
+          +
+        </Button>
       </Col>
-      <Col>
-        <Button variant="outline-secondary" onClick={reset}>
+      <Col className="p-3 d-flex justify-content-center align-items-center">
+        <h3>Movimientos: {moveCount}</h3>
+      </Col>
+      <Col className="p-3 d-flex justify-content-center align-items-center">
+        <Button className="m-1" variant="danger" onClick={reset}>
           Reiniciar
         </Button>
-        <Button variant="outline-secondary" onClick={solve}>
+        <Button className="m-1" variant="warning" onClick={solve}>
           Resolver
         </Button>
       </Col>
