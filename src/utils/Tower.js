@@ -18,12 +18,12 @@ class Tower {
   moveTopTo(towerDestination) {
     if (!towerDestination.disks.top) {
       const value = this.disks.pop();
-      towerDestination.disks.push(value.value);
+      towerDestination.disks.push(value.value, value.color);
       return true;
     } else {
       if (towerDestination.disks.top.value > this.disks.top.value) {
         const value = this.disks.pop();
-        towerDestination.disks.push(value.value);
+        towerDestination.disks.push(value.value, value.color);
         return true;
       }
     }

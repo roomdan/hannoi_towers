@@ -57,11 +57,3 @@ class Stack {
 }
 
 export default Stack;
-
-// const too = new Stack();
-// too.push(10);
-// too.push(20);
-// too.push(30);
-// console.log(too.pop());
-// console.log(too.traverse());
-// console.log(too.top);
